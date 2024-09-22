@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['login_history_id'] = $loginHistoryId;
 
         // Redirect to index page
-        header("Location: index.php");
+        header("Location: software.html");
         exit();
     } else {
         $_SESSION['login_error'] = "Invalid username or password";
