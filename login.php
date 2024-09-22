@@ -1,25 +1,47 @@
 <?php
+session_start();
 include('./config.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Check if form is submitted
+if (isset($_POST['submit'])) {
+    // Sanitize and validate input
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $sql = "SELECT * FROM users WHERE email=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-
-    if ($user && password_verify($password, $user['password'])) {
-        echo "Login successful!";
-    } else {
-        echo "Invalid email or password!";
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['login_error'] = "Invalid email format";
+        header("Location: login.php");
+        exit();
     }
 
-    $stmt->close();
-    $conn->close();
+    // Check credentials in the database
+    $query = "SELECT * FROM signup WHERE email='$email' AND password='$password'";
+    $result = mysqli_query($con, $query);
+
+    if (mysqli_num_rows($result) == 1) {
+        // Fetch user data
+        $user_data = mysqli_fetch_assoc($result);
+        $email = $user_data['email'];
+
+        // Log login history
+        $loginTimestamp = date('Y-m-d H:i:s');
+        $logLoginQuery = "INSERT INTO login_history (email, login_timestamp) VALUES ('$email', '$loginTimestamp')";
+        mysqli_query($con, $logLoginQuery);
+
+        // Store login history ID in session
+        $loginHistoryId = mysqli_insert_id($con);
+        $_SESSION['email'] = $email;
+        $_SESSION['login_history_id'] = $loginHistoryId;
+
+        // Redirect to index page
+        header("Location: software.html");
+        exit();
+    } else {
+        $_SESSION['login_error'] = "Invalid username or password";
+        header("Location: login.php");
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -30,13 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="form-container">
-        <h2>Login</h2>
-        <form action="login.php" method="post">
-            <input type="email" name="email" placeholder="Enter Email" required>
-            <input type="password" name="password" placeholder="Enter Password" required>
-            <input type="submit" value="Login">
+<body class="fade-in">
+    <div class="container">
+        <form method="POST" action="login.php">
+            <h1>Sign In</h1>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" name="submit">Sign In</button>
         </form>
     </div>
 </body>
