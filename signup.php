@@ -1,48 +1,51 @@
 <?php
-include('./config.php');
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+// Database connection details
+$servername = "localhost";
+$username = "root";
+$password = "system";
+$dbname = "internship";
 
-    // Basic validation for empty fields
-    if (empty($username) || empty($email) || empty($password)) {
-        echo "All fields are required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format!";
-    } elseif (strlen($password) < 6) {
-        echo "Password should be at least 6 characters!";
-    } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Check if user already exists
-        $sql = "SELECT * FROM users WHERE email=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            echo "Email already registered!";
-        } else {
-            // Insert new user
-            $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $username, $email, $hashed_password);
-
-            if ($stmt->execute()) {
-                echo "User registered successfully!";
-            } else {
-                echo "Error: " . $conn->error;
-            }
-        }
-
-        $stmt->close();
-    }
-
-    $conn->close();
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+// Check if form is submitted
+if (isset($_POST['submit'])) {
+    // Sanitize and validate input
+    $fullName = mysqli_real_escape_string($conn, $_POST['fullName']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $mobileNumber = mysqli_real_escape_string($conn, $_POST['mobileNumber']);
+    
+    // Check if email already exists
+    $checkEmailQuery = "SELECT * FROM signup WHERE email='$email'";
+    $result = mysqli_query($conn, $checkEmailQuery);
+
+    if (mysqli_num_rows($result) > 0) {
+        echo "Email already exists.";
+    } else {
+        // Insert data into signup table
+        $query = "INSERT INTO signup (full_name, email, password, mobile_number) 
+                  VALUES ('$fullName', '$email', '$password', '$mobileNumber')";
+
+        if (mysqli_query($conn, $query)) {
+            echo "Sign up successful!";
+            header("Location: success_page.php"); // Redirect to a success page
+            exit();
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        }
+    }
+}
+
+// Close the connection
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,21 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Signup</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="form-container">
-        <h2>Signup</h2>
-        <form action="signup.php" method="post">
-            <input type="text" name="username" placeholder="Enter Username" required>
-            <input type="email" name="email" placeholder="Enter Email" required>
-            <input type="password" name="password" placeholder="Enter Password" required>
-            <input type="submit" value="Signup">
+<body class="slide-in">
+    <div class="container">
+        <form method="POST" action="signup.php">
+            <h1>Create Account</h1>
+            <input type="text" name="fullName" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="tel" name="mobileNumber" placeholder="Mobile Number" required>
+            <button type="submit" name="submit">Sign Up</button>
         </form>
-
-        <!-- Login Button -->
-        <div class="login-link">
-            <p>Already have an account?</p>
-            <a href="login.php"><button type="button">Login</button></a>
-        </div>
     </div>
 </body>
 </html>
