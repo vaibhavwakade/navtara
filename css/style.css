@@ -183,7 +183,7 @@
     margin: 0 auto 35px auto;
 }
 
-.carousel-control-prev {
+/* .carousel-control-prev {
     width: 90px;
     height: 60px;
     position: absolute;
@@ -247,6 +247,32 @@
     opacity: 1;
     transition: 1s;
     border-radius: 20px;
+} */
+.carousel-control-prev,
+.carousel-control-next {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    color: white; /* Ensure the icon is visible */
+    width: 5px; /* Adjust width */
+    height: 5px; /* Adjust height */
+    padding: 0; /* Remove padding */
+ 
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent; /* Make the background transparent */
+    width: 100%; /* Make icon fill the button */
+    height: 100%; /* Make icon fill the button */
+
+}
+
+.carousel-control-prev-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 16 16"><path d="M11.742 1.5l-.086.086L5.5 8l6.156 6.414.086.086a.5.5 0 0 1-.708.708l-6.5-6.5a.5.5 0 0 1 0-.707l6.5-6.5a.5.5 0 0 1 .708.708z"/></svg>'); /* Custom white icon */
+}
+
+.carousel-control-next-icon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 16 16"><path d="M4.258 1.5l.086.086L10.5 8l-6.156 6.414-.086.086a.5.5 0 0 0 .708.708l6.5-6.5a.5.5 0 0 0 0-.707l-6.5-6.5a.5.5 0 0 0-.708.708z"/></svg>'); /* Custom white icon */
 }
 
 #carouselId .carousel-indicators li {
