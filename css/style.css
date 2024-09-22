@@ -102,6 +102,10 @@
 
 
 /*** Navbar Start ***/
+
+.logo-img{
+    border-radius: 50px;
+}
 .navbar .navbar-nav {
     padding: 15px 0;
 }
