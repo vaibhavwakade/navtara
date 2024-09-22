@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 // Add a new user (for testing purposes)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
-    $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);  // Hash the password
+    $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);  // Hash the 
 
     $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
