@@ -102,6 +102,10 @@
 
 
 /*** Navbar Start ***/
+
+.logo-img{
+    border-radius: 50px;
+}
 .navbar .navbar-nav {
     padding: 15px 0;
 }
@@ -664,3 +668,23 @@
 }
 
 /*** Footer End ***/
+
+
+/* ***software page*** */
+.card {
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale up the card */
+    background-color: #f8f9fa; /* Change background color */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+.card img {
+    transition: transform 0.3s;
+}
+
+.card:hover img {
+    transform: scale(1.1); /* Scale up the image */
+}
