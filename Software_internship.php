@@ -125,7 +125,7 @@ $conn->close();
                     <div class="card-body">
                         <h5 class="card-title">C++ Programming</h5>
                         <p class="card-text">C++ is a versatile, high-performance language used for system software,
-                            game development, and applications requiring both low-level memory control capabilities</p>
+                        game development, applications.</p>
                         <p><strong>Price: ₹2000</strong></p>
                         <button class="btn payment-btn" onclick="payNow(2)">Buy Now</button>
                     </div>
@@ -137,8 +137,7 @@ $conn->close();
                     <img src="img/Android.jpg" class="card-img-top" alt="Android Development">
                     <div class="card-body">
                         <h5 class="card-title">Android Development</h5>
-                        <p class="card-text">    An Android course focuses on developing mobile apps using Java or Kotlin, covering UI design,
-                            APIs, data storage, testing, and deployment to the Google Play Store.</p>
+                        <p class="card-text">An Android course focuses on developing mobile apps to the Google Play Store.</p>
                         <p><strong>Price: ₹2000</strong></p>
                         <button class="btn payment-btn" onclick="payNow(3)">Buy Now</button>
                     </div>
@@ -150,8 +149,7 @@ $conn->close();
                     <img src="img/Python.jpg" class="card-img-top" alt="Python Programming">
                     <div class="card-body">
                         <h5 class="card-title">Python Programming</h5>
-                        <p class="card-text"> A Python course teaches programming basics, data structures, libraries, and 
-                            real-world applications, suitable for beginners and professionals in various fields</p>
+                        <p class="card-text"> A Python course teaches programming basics for beginners and professionals in various fields</p>
                         <p><strong>Price: ₹2000</strong></p>
                         <button class="btn payment-btn" onclick="payNow(4)">Buy Now</button>
                     </div>
@@ -166,8 +164,7 @@ $conn->close();
                     <img src="img/Java.jpg" class="card-img-top" alt="Java Programming">
                     <div class="card-body">
                         <h5 class="card-title">Java Programming</h5>
-                        <p class="card-text">Java is a versatile, object-oriented programming language known for its portability,
-                            security, widely used in web, mobile, and enterprise applications.</p>
+                        <p class="card-text">Java is a  widely used in web, mobile, and enterprise applications.</p>
                         <p><strong>Price: ₹2000</strong></p>
                         <button class="btn payment-btn" onclick="payNow(5)">Buy Now</button>
                     </div>
@@ -179,8 +176,7 @@ $conn->close();
                     <img src="img/React.jpg" class="card-img-top" alt="React Development">
                     <div class="card-body">
                         <h5 class="card-title">React Development</h5>
-                        <p class="card-text">React development involves building user interfaces using reusable components, 
-                                enabling efficient updates, state management, and a dynamic, interactive web experience.</p>
+                        <p class="card-text">React development involves building user interfaces using reusable components.</p>
                         <p><strong>Price: ₹2000</strong></p>
                         <button class="btn payment-btn" onclick="payNow(6)">Buy Now</button>
                     </div>
