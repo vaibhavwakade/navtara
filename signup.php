@@ -17,11 +17,13 @@ if ($conn->connect_error) {
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
-    // Sanitize and validate input
     $fullName = mysqli_real_escape_string($conn, $_POST['fullName']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $mobileNumber = mysqli_real_escape_string($conn, $_POST['mobileNumber']);
+    
+    // Hash the password before saving it
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
     // Check if email already exists
     $checkEmailQuery = "SELECT * FROM signup WHERE email='$email'";
@@ -30,13 +32,13 @@ if (isset($_POST['submit'])) {
     if (mysqli_num_rows($result) > 0) {
         echo "Email already exists.";
     } else {
-        // Insert data into signup table
+        // Insert data into signup table with hashed password
         $query = "INSERT INTO signup (full_name, email, password, mobile_number) 
-                  VALUES ('$fullName', '$email', '$password', '$mobileNumber')";
+                  VALUES ('$fullName', '$email', '$hashedPassword', '$mobileNumber')";
 
         if (mysqli_query($conn, $query)) {
             echo "Sign up successful!";
-            header("Location: success_page.php"); // Redirect to a success page
+            header("Location: login.php");
             exit();
         } else {
             echo "Error: " . $query . "<br>" . mysqli_error($conn);
