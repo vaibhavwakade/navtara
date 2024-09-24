@@ -92,7 +92,7 @@ $conn->close();
                     <div class="navbar-nav ms-auto mx-xl-auto p-0">
                         <a href="index.html" class="nav-item nav-link active text-secondary">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="Student_contact.php" class="nav-item nav-link">Contact</a>
                         <a href="login.php" class="nav-item nav-link">JoinUs</a>
                         <a href="navtara.html" class="nav-item nav-link">Why NavTara?</a>
                     </div>
